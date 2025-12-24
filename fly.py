@@ -12,7 +12,7 @@ API_TOKEN = "f3-Ydn5PUTxHTg=="
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# Render-এর পোর্ট এরর দূর করার জন্য সার্ভার
+# এই অংশটি "Not Found" এরর দূর করবে
 class HealthCheckHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
@@ -26,7 +26,7 @@ def run_health_check():
 
 def check_and_send_otp():
     last_sent_otp = None
-    print("বটটি এখন flysms.net প্যানেলে ওটিপি চেক করছে...")
+    print("বট সফলভাবে সচল হয়েছে...")
     while True:
         try:
             url = f"https://flysms.net/api/v2?action=getOrders&api_key={API_TOKEN}"
@@ -45,6 +45,5 @@ def check_and_send_otp():
         time.sleep(10)
 
 if __name__ == "__main__":
-    # হেলথ চেক সার্ভার শুরু
     threading.Thread(target=run_health_check, daemon=True).start()
     check_and_send_otp()
